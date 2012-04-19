@@ -1,26 +1,22 @@
 package org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui;
 
-import org.vaadin.hene.flexibleoptiongroup.FlexibleOptionGroup;
-
 import com.vaadin.terminal.gwt.client.ComponentState;
 
 public class FlexibleOptionGroupItemComponentState extends ComponentState {
 
-	//private FlexibleOptionGroup owner;
+	private int ownerId;
 
 	private boolean selected;
 
 	private boolean multiSelect;
 
-	//private boolean enabled = true;
+	public int getOwnerId() {
+		return ownerId;
+	}
 
-	// public FlexibleOptionGroup getOwner() {
-	// return owner;
-	// }
-
-	// public void setOwner(FlexibleOptionGroup owner) {
-	// this.owner = owner;
-	// }
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
 
 	public boolean isSelected() {
 		return selected;
@@ -37,12 +33,4 @@ public class FlexibleOptionGroupItemComponentState extends ComponentState {
 	public void setMultiSelect(boolean multiSelect) {
 		this.multiSelect = multiSelect;
 	}
-
-//	public boolean isEnabled() {
-//		return enabled;
-//	}
-//
-//	public void setEnabled(boolean enabled) {
-//		this.enabled = enabled;
-//	}
 }

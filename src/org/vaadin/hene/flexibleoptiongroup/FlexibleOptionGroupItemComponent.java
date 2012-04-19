@@ -1,11 +1,9 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.ATTR_MULTISELECT;
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.ATTR_OWNER;
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.VAADIN_ATTR_DISABLED;
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.VAR_SELECTED;
-
 import java.util.Map;
+
+import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
+import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
@@ -20,15 +18,28 @@ import com.vaadin.ui.AbstractComponent;
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class FlexibleOptionGroupItemComponent extends AbstractComponent implements Vaadin6Component {
+public class FlexibleOptionGroupItemComponent extends AbstractComponent
+		implements Vaadin6Component {
 
 	private final FlexibleOptionGroup owner;
 	private final Object itemId;
+
+	private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
+
+		public void selected(boolean selected) {
+			if (selected) {
+				owner.select(itemId);
+			} else {
+				owner.unselect(itemId);
+			}
+		}
+	};
 
 	protected FlexibleOptionGroupItemComponent(FlexibleOptionGroup owner,
 			Object itemId) {
 		this.owner = owner;
 		this.itemId = itemId;
+		registerRpc(rpc);
 	}
 
 	public void paintContent(PaintTarget target) throws PaintException {
@@ -38,30 +49,15 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent implemen
 							+ itemId + "'.");
 		}
 
-		target.addAttribute(ATTR_OWNER, owner);
+		getState().setOwnerId(owner.id);
+		getState().setSelected(owner.isSelected(itemId));
+		getState().setEnabled(owner.isEnabled() && isEnabled());
+		getState().setMultiSelect(owner.isMultiSelect());
 
-		target.addVariable(this, VAR_SELECTED, owner.isSelected(itemId));
-
-		if (!owner.isEnabled() || !isEnabled()) {
-			target.addAttribute(VAADIN_ATTR_DISABLED, true);
-		}
-		if (owner.isMultiSelect()) {
-			target.addAttribute(ATTR_MULTISELECT, true);
-		}
+		getState().setReadOnly(owner.isReadOnly());
 	}
 
 	public void changeVariables(Object source, Map<String, Object> variables) {
-		if (!isReadOnly() && variables.containsKey(VAR_SELECTED)) {
-			final boolean selected = (Boolean) variables.get(VAR_SELECTED);
-			if (selected != owner.isSelected(itemId)) {
-				if (selected) {
-					owner.select(itemId);
-				} else {
-					owner.unselect(itemId);
-				}
-			}
-
-		}
 	}
 
 	/**
@@ -146,9 +142,9 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent implemen
 	public boolean isImmediate() {
 		return owner.isImmediate();
 	}
-	
-//	@Override
-//    public FlexibleOptionGroupItemComponentState getState() {
-//        return (FlexibleOptionGroupItemComponentState) super.getState();
-//    }
+
+	@Override
+	public FlexibleOptionGroupItemComponentState getState() {
+		return (FlexibleOptionGroupItemComponentState) super.getState();
+	}
 }

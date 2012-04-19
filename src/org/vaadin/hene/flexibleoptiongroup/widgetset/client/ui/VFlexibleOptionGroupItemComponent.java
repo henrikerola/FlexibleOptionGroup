@@ -1,7 +1,5 @@
 package org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui;
 
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.*;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,7 +15,8 @@ import com.vaadin.terminal.gwt.client.VConsole;
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class VFlexibleOptionGroupItemComponent extends Composite implements ClickHandler {
+public class VFlexibleOptionGroupItemComponent extends Composite implements
+		ClickHandler, Paintable {
 
 	public static final String CLASSNAME = "v-flexibleoptiongroupitemcomponent";
 
@@ -45,7 +44,6 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements Clic
 	}
 
 	public void setMultiSelect(boolean multiselect) {
-		VConsole.log("multi select: " + multiselect);
 		if (multiselect) {
 			checkbox = new SimpleCheckBox();
 		} else {
@@ -91,5 +89,9 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements Clic
 
 	public void setCheckedListener(ComponentCheckedListener checkedListener) {
 		this.checkedListener = checkedListener;
+	}
+
+	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
+
 	}
 }

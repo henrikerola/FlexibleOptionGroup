@@ -67,10 +67,10 @@ public class FlexibleOptionGroupRoot extends Root {
 
 		final TabSheet ts = new TabSheet();
 		ts.setSizeFull();
-		//ts.addComponent(new GridLayoutTab());
-		//ts.addComponent(new TableExampleTab());
+		ts.addComponent(new GridLayoutTab());
+		ts.addComponent(new TableExampleTab());
 		ts.addComponent(new HorizontalOptionGroupTab());
-		//ts.addComponent(new AbsoluteLayoutTab());
+		ts.addComponent(new AbsoluteLayoutTab());
 		mainLayout.addComponent(ts);
 		mainLayout.setExpandRatio(ts, 1);
 
@@ -320,15 +320,15 @@ public class FlexibleOptionGroupRoot extends Root {
 
 		private AbstractTab tab;
 
-		private CheckBox immediateCheckBox = new CheckBox("Immediate");
+		// private CheckBox immediateCheckBox = new CheckBox("Immediate");
 		private CheckBox enableCheckBox = new CheckBox("Enabled");
 		private CheckBox readOnlyCheckBox = new CheckBox("Read-only");
 		private CheckBox multiSelectCheckBox = new CheckBox("Multi-select");
 
 		public FlexibleOptionGroupPropertyEditor() {
-			immediateCheckBox.addListener(this);
-			immediateCheckBox.setImmediate(true);
-			addComponent(immediateCheckBox);
+			// immediateCheckBox.addListener(this);
+			// immediateCheckBox.setImmediate(true);
+			// addComponent(immediateCheckBox);
 			enableCheckBox.addListener(this);
 			enableCheckBox.setImmediate(true);
 			addComponent(enableCheckBox);
@@ -342,25 +342,26 @@ public class FlexibleOptionGroupRoot extends Root {
 
 		public void refresh(AbstractTab tab) {
 			this.tab = tab;
-//			FlexibleOptionGroup fop = tab.flexibleOptionGroup;
-//			immediateCheckBox.setValue(fop.isImmediate());
-//			enableCheckBox.setValue(fop.isEnabled());
-//			readOnlyCheckBox.setValue(fop.isReadOnly());
-//			multiSelectCheckBox.setValue(fop.isMultiSelect());
+			FlexibleOptionGroup fop = tab.flexibleOptionGroup;
+			// immediateCheckBox.setValue(fop.isImmediate());
+			enableCheckBox.setValue(fop.isEnabled());
+			readOnlyCheckBox.setValue(fop.isReadOnly());
+			multiSelectCheckBox.setValue(fop.isMultiSelect());
 		}
 
 		public void valueChange(ValueChangeEvent event) {
 			FlexibleOptionGroup fop = tab.flexibleOptionGroup;
-			if (immediateCheckBox == event.getProperty()) {
-				fop.setImmediate(immediateCheckBox.getValue());
-			} else if (enableCheckBox == event.getProperty()) {
+			// if (immediateCheckBox == event.getProperty()) {
+			// fop.setImmediate(immediateCheckBox.getValue());
+			// } else
+			if (enableCheckBox == event.getProperty()) {
 				fop.setEnabled(enableCheckBox.getValue());
 			} else if (readOnlyCheckBox == event.getProperty()) {
 				fop.setReadOnly(readOnlyCheckBox.getValue());
 			} else if (multiSelectCheckBox == event.getProperty()) {
 				fop.setMultiSelect(multiSelectCheckBox.getValue());
 			}
-			
+
 		}
 	}
 }

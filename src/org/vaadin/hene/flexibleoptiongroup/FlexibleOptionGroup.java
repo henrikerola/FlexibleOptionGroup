@@ -10,8 +10,8 @@ import com.vaadin.data.Container;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
-import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.OptionGroup;
 
 /**
@@ -106,7 +106,7 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	public void setParent(Component parent) {
+	public void setParent(HasComponents parent) {
 		throw new UnsupportedOperationException(
 				"The FlexibleOptionGroup component cannot be attached to an Application.");
 	}

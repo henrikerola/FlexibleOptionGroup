@@ -11,23 +11,27 @@ import com.google.gwt.user.client.ui.SimpleRadioButton;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
 import com.vaadin.terminal.gwt.client.Paintable;
 import com.vaadin.terminal.gwt.client.UIDL;
+import com.vaadin.terminal.gwt.client.VConsole;
 
 /**
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class VFlexibleOptionGroupItemComponent extends Composite implements
-		Paintable, ClickHandler {
+public class VFlexibleOptionGroupItemComponent extends Composite implements ClickHandler {
 
 	public static final String CLASSNAME = "v-flexibleoptiongroupitemcomponent";
 
 	protected String paintableId;
 	ApplicationConnection client;
 
-	protected boolean immediate = false;
-
 	protected SimplePanel panel;
 	protected SimpleCheckBox checkbox;
+
+	private String ownerId;
+	private boolean enabled;
+	private boolean selected;
+
+	private ComponentCheckedListener checkedListener;
 
 	public VFlexibleOptionGroupItemComponent() {
 		panel = new SimplePanel();
@@ -36,34 +40,56 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 		setStyleName(CLASSNAME);
 	}
 
-	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
-		if (client.updateComponent(this, uidl, false)) {
-			return;
-		}
-		this.client = client;
-		paintableId = uidl.getId();
+	public void onClick(ClickEvent event) {
+		updateChecked(checkbox.getValue());
+	}
 
-		immediate = uidl.getBooleanAttribute(VAADIN_ATTR_IMMEDIATE);
-		String ownerId = uidl.getStringAttribute(ATTR_OWNER);
-
-		if (uidl.hasAttribute(ATTR_MULTISELECT)) {
+	public void setMultiSelect(boolean multiselect) {
+		VConsole.log("multi select: " + multiselect);
+		if (multiselect) {
 			checkbox = new SimpleCheckBox();
 		} else {
 			checkbox = new SimpleRadioButton(ownerId);
 		}
-		checkbox.setChecked(uidl.getBooleanVariable(VAR_SELECTED));
-		checkbox.setEnabled(!uidl.hasAttribute(VAADIN_ATTR_DISABLED)
-				&& !uidl.hasAttribute(VAADIN_ATTR_READONLY));
+		checkbox.setEnabled(enabled);
+		checkbox.setValue(selected);
 
 		checkbox.addClickHandler(this);
 		panel.setWidget(checkbox);
 	}
 
-	public void onClick(ClickEvent event) {
-		updateChecked(checkbox.isChecked());
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+		if (checkbox instanceof SimpleRadioButton) {
+			checkbox.setName(ownerId);
+		}
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+		if (checkbox != null) {
+			checkbox.setEnabled(enabled);
+		}
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		if (checkbox != null) {
+			checkbox.setValue(selected);
+		}
+	}
+
+	public interface ComponentCheckedListener {
+		void checked(boolean checked);
 	}
 
 	protected void updateChecked(boolean checked) {
-		client.updateVariable(paintableId, VAR_SELECTED, checked, immediate);
+		if (checkedListener != null) {
+			checkedListener.checked(checked);
+		}
+	}
+
+	public void setCheckedListener(ComponentCheckedListener checkedListener) {
+		this.checkedListener = checkedListener;
 	}
 }

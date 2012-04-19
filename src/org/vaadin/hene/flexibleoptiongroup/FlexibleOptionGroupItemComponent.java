@@ -1,16 +1,17 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.*;
+import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.ATTR_MULTISELECT;
+import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.ATTR_OWNER;
+import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.VAADIN_ATTR_DISABLED;
+import static org.vaadin.hene.flexibleoptiongroup.widgetset.client.VFlexibleOptionGroupItemComponentConstants.VAR_SELECTED;
 
 import java.util.Map;
-
-import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.VFlexibleOptionGroupItemComponent;
 
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.terminal.Resource;
+import com.vaadin.terminal.Vaadin6Component;
 import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.ClientWidget;
 
 /**
  * {@link FlexibleOptionGroupItemComponent} represents a radio button or a check
@@ -19,8 +20,7 @@ import com.vaadin.ui.ClientWidget;
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-@ClientWidget(VFlexibleOptionGroupItemComponent.class)
-public class FlexibleOptionGroupItemComponent extends AbstractComponent {
+public class FlexibleOptionGroupItemComponent extends AbstractComponent implements Vaadin6Component {
 
 	private final FlexibleOptionGroup owner;
 	private final Object itemId;
@@ -31,9 +31,7 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 		this.itemId = itemId;
 	}
 
-	@Override
 	public void paintContent(PaintTarget target) throws PaintException {
-		super.paintContent(target);
 		if (!owner.containsId(itemId)) {
 			throw new IllegalStateException(
 					"The owner FlexibleOptionGroup does not contain an item with itemId '"
@@ -52,9 +50,7 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 		}
 	}
 
-	@Override
 	public void changeVariables(Object source, Map<String, Object> variables) {
-		super.changeVariables(source, variables);
 		if (!isReadOnly() && variables.containsKey(VAR_SELECTED)) {
 			final boolean selected = (Boolean) variables.get(VAR_SELECTED);
 			if (selected != owner.isSelected(itemId)) {
@@ -150,4 +146,9 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	public boolean isImmediate() {
 		return owner.isImmediate();
 	}
+	
+//	@Override
+//    public FlexibleOptionGroupItemComponentState getState() {
+//        return (FlexibleOptionGroupItemComponentState) super.getState();
+//    }
 }

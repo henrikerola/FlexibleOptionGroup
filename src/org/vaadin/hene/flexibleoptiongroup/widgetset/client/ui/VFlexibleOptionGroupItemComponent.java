@@ -44,12 +44,12 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 		paintableId = uidl.getId();
 
 		immediate = uidl.getBooleanAttribute(VAADIN_ATTR_IMMEDIATE);
-		String ownerId = uidl.getStringAttribute(ATTR_OWNER);
+		int ownerId = uidl.getIntAttribute(ATTR_OWNER);
 
 		if (uidl.hasAttribute(ATTR_MULTISELECT)) {
 			checkbox = new SimpleCheckBox();
 		} else {
-			checkbox = new SimpleRadioButton(ownerId);
+			checkbox = new SimpleRadioButton("flexibleoptiongroup-" + ownerId);
 		}
 		checkbox.setChecked(uidl.getBooleanVariable(VAR_SELECTED));
 		checkbox.setEnabled(!uidl.hasAttribute(VAADIN_ATTR_DISABLED)

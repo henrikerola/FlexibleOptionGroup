@@ -40,7 +40,7 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 							+ itemId + "'.");
 		}
 
-		target.addAttribute(ATTR_OWNER, owner);
+		target.addAttribute(ATTR_OWNER, owner.id);
 
 		target.addVariable(this, VAR_SELECTED, owner.isSelected(itemId));
 

@@ -37,12 +37,16 @@ import com.vaadin.ui.OptionGroup;
  */
 public class FlexibleOptionGroup extends OptionGroup {
 
+	private static int nextId = 0;
+	
 	protected Map<Object, FlexibleOptionGroupItemComponent> itemComponentMap = new HashMap<Object, FlexibleOptionGroupItemComponent>();
+	final int id;
 
 	/**
 	 * Creates an empty {@link FlexibleOptionGroup}.
 	 */
 	public FlexibleOptionGroup() {
+		id = nextId++;
 		setContainerDataSource(new IndexedContainer());
 	}
 
@@ -53,10 +57,12 @@ public class FlexibleOptionGroup extends OptionGroup {
 	 * @param dataSource
 	 */
 	public FlexibleOptionGroup(Container dataSource) {
+		id = nextId++;
 		setContainerDataSource(dataSource);
 	}
 
 	public FlexibleOptionGroup(Collection<?> options) {
+		id = nextId++;
 		final Container c = new IndexedContainer();
 		if (options != null) {
 			for (final Iterator<?> i = options.iterator(); i.hasNext();) {

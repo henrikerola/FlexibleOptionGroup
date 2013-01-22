@@ -8,10 +8,11 @@ import java.util.Map.Entry;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.terminal.PaintException;
-import com.vaadin.terminal.PaintTarget;
+import com.vaadin.server.ClientConnector;
+import com.vaadin.server.PaintException;
+import com.vaadin.server.PaintTarget;
+import com.vaadin.shared.communication.SharedState;
 import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.OptionGroup;
 
 /**
@@ -111,7 +112,7 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	public void setParent(HasComponents parent) {
+	public void setParent(ClientConnector parent) {
 		throw new UnsupportedOperationException(
 				"The FlexibleOptionGroup component cannot be attached to an Application.");
 	}
@@ -152,13 +153,26 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	public void requestRepaint() {
-		super.requestRepaint();
+	public void markAsDirty() {
+		super.markAsDirty();
+		markItemComponentsAsDirty();
+	}
+
+	@Override
+	protected SharedState getState(boolean markAsDirty) {
+		if (markAsDirty) {
+			markItemComponentsAsDirty();
+		}
+		return super.getState(markAsDirty);
+	}
+
+	private void markItemComponentsAsDirty() {
 		if (itemComponentMap != null) {
 			for (Entry<Object, FlexibleOptionGroupItemComponent> e : itemComponentMap
 					.entrySet()) {
-				e.getValue().requestRepaint();
+				e.getValue().markAsDirty();
 			}
 		}
 	}
+
 }

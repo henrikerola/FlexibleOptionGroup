@@ -5,15 +5,14 @@ import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.VFlexibleOptionGr
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Widget;
-import com.vaadin.terminal.gwt.client.VConsole;
-import com.vaadin.terminal.gwt.client.communication.RpcProxy;
-import com.vaadin.terminal.gwt.client.communication.StateChangeEvent;
-import com.vaadin.terminal.gwt.client.ui.Connect;
-import com.vaadin.terminal.gwt.client.ui.Vaadin6Connector;
+import com.vaadin.client.communication.RpcProxy;
+import com.vaadin.client.communication.StateChangeEvent;
+import com.vaadin.client.ui.AbstractComponentConnector;
+import com.vaadin.shared.ui.Connect;
 
 @Connect(FlexibleOptionGroupItemComponent.class)
-public class FlexibleOptionGroupItemComponentConnector extends Vaadin6Connector
-		implements ComponentCheckedListener {
+public class FlexibleOptionGroupItemComponentConnector extends
+		AbstractComponentConnector implements ComponentCheckedListener {
 
 	private FlexibleOptionGroupItemComponentServerRpc rpc = RpcProxy.create(
 			FlexibleOptionGroupItemComponentServerRpc.class, this);
@@ -44,12 +43,11 @@ public class FlexibleOptionGroupItemComponentConnector extends Vaadin6Connector
 	@Override
 	public void onStateChanged(StateChangeEvent stateChangeEvent) {
 		super.onStateChanged(stateChangeEvent);
+		getWidget().setMultiSelect(getState().multiSelect);
+		getWidget().setOwnerId("" + getState().ownerId);
+		getWidget().setSelected(getState().selected);
+		getWidget().setEnabled(isEnabled() && !isReadOnly());
 
-		getWidget().setMultiSelect(getState().isMultiSelect());
-		getWidget().setOwnerId("" + getState().getOwnerId());
-		getWidget().setSelected(getState().isSelected());
-		getWidget().setEnabled(
-				getState().isEnabled() && !getState().isReadOnly());
 	}
 
 	public void checked(boolean checked) {

@@ -1,14 +1,9 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import java.util.Map;
-
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
-import com.vaadin.terminal.PaintException;
-import com.vaadin.terminal.PaintTarget;
-import com.vaadin.terminal.Resource;
-import com.vaadin.terminal.Vaadin6Component;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.AbstractComponent;
 
 /**
@@ -18,8 +13,7 @@ import com.vaadin.ui.AbstractComponent;
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class FlexibleOptionGroupItemComponent extends AbstractComponent
-		implements Vaadin6Component {
+public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 
 	private final FlexibleOptionGroup owner;
 	private final Object itemId;
@@ -42,22 +36,20 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent
 		registerRpc(rpc);
 	}
 
-	public void paintContent(PaintTarget target) throws PaintException {
+	@Override
+	public void beforeClientResponse(boolean initial) {
+		super.beforeClientResponse(initial);
 		if (!owner.containsId(itemId)) {
 			throw new IllegalStateException(
 					"The owner FlexibleOptionGroup does not contain an item with itemId '"
 							+ itemId + "'.");
 		}
 
-		getState().setOwnerId(owner.id);
-		getState().setSelected(owner.isSelected(itemId));
-		getState().setEnabled(owner.isEnabled() && isEnabled());
-		getState().setMultiSelect(owner.isMultiSelect());
-
-		getState().setReadOnly(owner.isReadOnly());
-	}
-
-	public void changeVariables(Object source, Map<String, Object> variables) {
+		getState().ownerId = owner.id;
+		getState().selected = owner.isSelected(itemId);
+		getState().enabled = owner.isEnabled() && isEnabled();
+		getState().multiSelect = owner.isMultiSelect();
+		getState().readOnly = owner.isReadOnly();
 	}
 
 	/**

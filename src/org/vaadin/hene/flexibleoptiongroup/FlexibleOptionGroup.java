@@ -11,8 +11,10 @@ import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.ClientConnector;
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
+import com.vaadin.shared.AbstractFieldState;
 import com.vaadin.shared.communication.SharedState;
 import com.vaadin.ui.ComponentContainer;
+import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.OptionGroup;
 
 /**
@@ -34,6 +36,7 @@ import com.vaadin.ui.OptionGroup;
  * 
  * 
  * @author Henri Kerola / Vaadin Ltd
+ * @author Maciej Przepióra / Vaadin Ltd
  * 
  */
 public class FlexibleOptionGroup extends OptionGroup {
@@ -112,7 +115,7 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	public void setParent(ClientConnector parent) {
+	public void setParent(HasComponents parent) {
 		throw new UnsupportedOperationException(
 				"The FlexibleOptionGroup component cannot be attached to an Application.");
 	}
@@ -159,7 +162,7 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	protected SharedState getState(boolean markAsDirty) {
+	protected AbstractFieldState getState(boolean markAsDirty) {
 		if (markAsDirty) {
 			markItemComponentsAsDirty();
 		}

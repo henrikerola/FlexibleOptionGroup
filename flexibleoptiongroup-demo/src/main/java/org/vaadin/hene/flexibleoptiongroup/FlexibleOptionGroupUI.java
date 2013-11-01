@@ -51,6 +51,11 @@ public class FlexibleOptionGroupUI extends UI {
 	@WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = FlexibleOptionGroupUI.class, widgetset = "org.vaadin.hene.flexibleoptiongroup.demo.DemoWidgetSet")
     public static class Servlet extends VaadinServlet {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6453965251118941696L;
     }
 
 	private static final String CAPTION_PROPERTY = "caption";

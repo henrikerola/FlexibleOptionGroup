@@ -43,7 +43,12 @@ import com.vaadin.ui.themes.Reindeer;
 @Title("FlexibleOptionGroup")
 public class FlexibleOptionGroupUI extends UI {
 	
-    @WebServlet(value = "/*", asyncSupported = true)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5006953560867758089L;
+
+	@WebServlet(value = "/*", asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = FlexibleOptionGroupUI.class, widgetset = "org.vaadin.hene.flexibleoptiongroup.demo.DemoWidgetSet")
     public static class Servlet extends VaadinServlet {
     }

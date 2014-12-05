@@ -3,9 +3,9 @@ package org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.SimpleCheckBox;
+import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.SimpleRadioButton;
+import com.google.gwt.user.client.ui.RadioButton;
 
 /**
  * @author Henri Kerola / Vaadin Ltd
@@ -19,7 +19,7 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 	protected String paintableId;
 
 	protected SimplePanel panel;
-	protected SimpleCheckBox checkbox;
+	protected CheckBox checkbox;
 
 	private String ownerId;
 	private boolean multiSelect;
@@ -44,9 +44,10 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 
 		this.multiSelect = multiselect;
 		if (multiselect) {
-			checkbox = new SimpleCheckBox();
+			checkbox = new CheckBox();
 		} else {
-			checkbox = new SimpleRadioButton(ownerId);
+			checkbox = new RadioButton(ownerId);
+			checkbox.setStyleName("v-radiobutton");
 		}
 
 		checkbox.addClickHandler(this);
@@ -55,7 +56,7 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
-		if (checkbox instanceof SimpleRadioButton) {
+		if (checkbox instanceof RadioButton) {
 			checkbox.setName(ownerId);
 		}
 	}

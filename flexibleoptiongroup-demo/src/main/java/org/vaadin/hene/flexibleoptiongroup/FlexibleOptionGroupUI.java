@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.Container;
@@ -41,6 +42,7 @@ import com.vaadin.ui.themes.Reindeer;
  * 
  */
 @Title("FlexibleOptionGroup")
+@Theme("valo")
 public class FlexibleOptionGroupUI extends UI {
 	
     /**

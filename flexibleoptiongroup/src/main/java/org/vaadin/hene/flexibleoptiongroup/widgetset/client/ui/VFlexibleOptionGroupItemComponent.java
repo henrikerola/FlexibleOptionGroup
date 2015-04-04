@@ -16,8 +16,6 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 
 	public static final String CLASSNAME = "v-flexibleoptiongroupitemcomponent";
 
-	protected String paintableId;
-
 	protected SimplePanel panel;
 	protected CheckBox checkbox;
 
@@ -45,6 +43,7 @@ public class VFlexibleOptionGroupItemComponent extends Composite implements
 		this.multiSelect = multiselect;
 		if (multiselect) {
 			checkbox = new CheckBox();
+			checkbox.addStyleName("v-checkbox");
 		} else {
 			checkbox = new RadioButton(ownerId);
 			checkbox.setStyleName("v-radiobutton");

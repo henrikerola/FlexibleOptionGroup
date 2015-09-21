@@ -121,6 +121,7 @@
 				<configuration>
 					<archive>
 						<index>true</index>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
@@ -132,6 +133,37 @@
 							<Vaadin-Widgetsets>org.vaadin.hene.flexibleoptiongroup.widgetset.FlexibleOptionGroupWidgetset</Vaadin-Widgetsets>
 						</manifestEntries>
 					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.5.4</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<instructions>
+						<Export-Package>org.vaadin.hene.flexibleoptiongroup.*</Export-Package>
+						<!-- All else should be in the private-package header. If we don't add this any package with a
+						different namespace then defined in the 'Export-Package' won't be included in the jar. -->
+						<Private-Package>*</Private-Package>
+						<!-- 'version="7.1"' means everything starting from and higher then 7.1 -->
+						<Import-Package>
+							!com.vaadin.client.*,
+							com.vaadin.*;version="7.1",
+							com.google.gwt.*;resolution:=optional,
+						</Import-Package>
+						<_nouses>true</_nouses>
+					</instructions>
 				</configuration>
 			</plugin>
 			

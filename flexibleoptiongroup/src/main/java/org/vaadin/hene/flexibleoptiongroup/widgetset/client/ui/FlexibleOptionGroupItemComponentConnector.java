@@ -46,7 +46,7 @@ public class FlexibleOptionGroupItemComponentConnector extends
 		getWidget().setMultiSelect(getState().multiSelect);
 		getWidget().setOwnerId("" + getState().ownerId);
 		getWidget().setSelected(getState().selected);
-		getWidget().setEnabled(isEnabled() && !isReadOnly());
+//		getWidget().setEnabled(isEnabled() && !isReadOnly());
 
 	}
 

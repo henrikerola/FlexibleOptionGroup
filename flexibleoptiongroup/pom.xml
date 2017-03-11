@@ -10,7 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<vaadin.version>7.5.6</vaadin.version>
+		<vaadin.version>8.0.1</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 
 		<!-- ZIP Manifest fields -->
@@ -109,8 +109,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
@@ -136,36 +136,36 @@
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.4</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<id>bundle-manifest</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>manifest</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<instructions>
-						<Export-Package>org.vaadin.hene.flexibleoptiongroup.*</Export-Package>
-						<!-- All else should be in the private-package header. If we don't add this any package with a
-						different namespace then defined in the 'Export-Package' won't be included in the jar. -->
-						<Private-Package>*</Private-Package>
-						<!-- 'version="7.1"' means everything starting from and higher then 7.1 -->
-						<Import-Package>
-							!com.vaadin.client.*,
-							com.vaadin.*;version="7.1",
-							com.google.gwt.*;resolution:=optional,
-						</Import-Package>
-						<_nouses>true</_nouses>
-					</instructions>
-				</configuration>
-			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>org.apache.felix</groupId>-->
+				<!--<artifactId>maven-bundle-plugin</artifactId>-->
+				<!--<version>2.5.4</version>-->
+				<!--<extensions>true</extensions>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>bundle-manifest</id>-->
+						<!--<phase>process-classes</phase>-->
+						<!--<goals>-->
+							<!--<goal>manifest</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--<configuration>-->
+					<!--<instructions>-->
+						<!--<Export-Package>org.vaadin.hene.flexibleoptiongroup.*</Export-Package>-->
+						<!--&lt;!&ndash; All else should be in the private-package header. If we don't add this any package with a-->
+						<!--different namespace then defined in the 'Export-Package' won't be included in the jar. &ndash;&gt;-->
+						<!--<Private-Package>*</Private-Package>-->
+						<!--&lt;!&ndash; 'version="7.1"' means everything starting from and higher then 7.1 &ndash;&gt;-->
+						<!--<Import-Package>-->
+							<!--!com.vaadin.client.*,-->
+							<!--com.vaadin.*;version="7.1",-->
+							<!--com.google.gwt.*;resolution:=optional,-->
+						<!--</Import-Package>-->
+						<!--<_nouses>true</_nouses>-->
+					<!--</instructions>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
 			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

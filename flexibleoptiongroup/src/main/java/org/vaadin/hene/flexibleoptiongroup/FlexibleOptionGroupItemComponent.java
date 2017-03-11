@@ -24,7 +24,7 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 			if (selected) {
 				owner.select(itemId);
 			} else {
-				owner.unselect(itemId);
+				owner.deselect(itemId);
 			}
 		}
 	};
@@ -39,17 +39,17 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	@Override
 	public void beforeClientResponse(boolean initial) {
 		super.beforeClientResponse(initial);
-		if (!owner.containsId(itemId)) {
-			throw new IllegalStateException(
-					"The owner FlexibleOptionGroup does not contain an item with itemId '"
-							+ itemId + "'.");
-		}
-
-		getState().ownerId = owner.id;
-		getState().selected = owner.isSelected(itemId);
+//		if (!owner.containsId(itemId)) {
+//			throw new IllegalStateException(
+//					"The owner FlexibleOptionGroup does not contain an item with itemId '"
+//							+ itemId + "'.");
+//		}
+//
+//		getState().ownerId = owner.id;
+//		getState().selected = owner.isSelected(itemId);
 		getState().enabled = owner.isEnabled() && isEnabled();
-		getState().multiSelect = owner.isMultiSelect();
-		getState().readOnly = owner.isReadOnly();
+//		getState().multiSelect = owner.isMultiSelect();
+//		getState().readOnly = owner.isReadOnly();
 	}
 
 	/**
@@ -79,10 +79,10 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	 * @param caption
 	 *            the caption of this FlexibleOptionGroupItemComponent
 	 */
-	@Override
-	public void setCaption(String caption) {
-		owner.setItemCaption(itemId, caption);
-	}
+//	@Override
+//	public void setCaption(String caption) {
+//		owner.setItemCaption(itemId, caption);
+//	}
 
 	/**
 	 * Returns the caption of this FlexibleOptionGroupItemComponent. The method
@@ -90,53 +90,53 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	 * 
 	 * @return the caption of this FlexibleOptionGroupItemComponent
 	 */
-	@Override
-	public String getCaption() {
-		return owner.getItemCaption(itemId);
-	}
-
-	@Override
-	public void setIcon(Resource icon) {
-		owner.setItemIcon(itemId, icon);
-	}
-
-	@Override
-	public Resource getIcon() {
-		return owner.getItemIcon(itemId);
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return owner.isItemEnabled(itemId);
-	}
-
-	@Override
-	public void setEnabled(boolean enabled) {
-		owner.setItemEnabled(itemId, enabled);
-	}
-
-	@Override
-	public boolean isReadOnly() {
-		return owner.isReadOnly();
-	}
-
-	@Override
-	public void setReadOnly(boolean readOnly) {
-		owner.setReadOnly(readOnly);
-	}
-
-	@Override
-	public void setImmediate(boolean immediate) {
-		owner.setImmediate(immediate);
-	}
-
-	@Override
-	public boolean isImmediate() {
-		return owner.isImmediate();
-	}
-
-	@Override
-	public FlexibleOptionGroupItemComponentState getState() {
-		return (FlexibleOptionGroupItemComponentState) super.getState();
-	}
+//	@Override
+//	public String getCaption() {
+//		return owner.getItemCaption(itemId);
+//	}
+//
+//	@Override
+//	public void setIcon(Resource icon) {
+//		owner.setItemIcon(itemId, icon);
+//	}
+//
+//	@Override
+//	public Resource getIcon() {
+//		return owner.getItemIcon(itemId);
+//	}
+//
+//	@Override
+//	public boolean isEnabled() {
+//		return owner.isItemEnabled(itemId);
+//	}
+//
+//	@Override
+//	public void setEnabled(boolean enabled) {
+//		owner.setItemEnabled(itemId, enabled);
+//	}
+//
+//	@Override
+//	public boolean isReadOnly() {
+//		return owner.isReadOnly();
+//	}
+//
+//	@Override
+//	public void setReadOnly(boolean readOnly) {
+//		owner.setReadOnly(readOnly);
+//	}
+//
+//	@Override
+//	public void setImmediate(boolean immediate) {
+//		owner.setImmediate(immediate);
+//	}
+//
+//	@Override
+//	public boolean isImmediate() {
+//		return owner.isImmediate();
+//	}
+//
+//	@Override
+//	public FlexibleOptionGroupItemComponentState getState() {
+//		return (FlexibleOptionGroupItemComponentState) super.getState();
+//	}
 }

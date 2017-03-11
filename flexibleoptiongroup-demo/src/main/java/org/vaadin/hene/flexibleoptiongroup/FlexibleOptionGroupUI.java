@@ -7,12 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.data.util.ObjectProperty;
+import com.vaadin.data.HasValue;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.server.Resource;
@@ -30,12 +25,10 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * @author Henri Kerola / Vaadin Ltd
@@ -80,13 +73,12 @@ public class FlexibleOptionGroupUI extends UI {
 		setContent(mainLayout);
 
 		Label headerLabel = new Label("FlexibleOptionGroup");
-		headerLabel.setStyleName(Reindeer.LABEL_H1);
+		headerLabel.setStyleName(ValoTheme.LABEL_H1);
 		mainLayout.addComponent(headerLabel);
 
 		final TabSheet ts = new TabSheet();
 		ts.setSizeFull();
 		ts.addComponent(new GridLayoutTab());
-		ts.addComponent(new TableExampleTab());
 		ts.addComponent(new HorizontalOptionGroupTab());
 		ts.addComponent(new AbsoluteLayoutTab());
 		mainLayout.addComponent(ts);
@@ -96,34 +88,34 @@ public class FlexibleOptionGroupUI extends UI {
 		propertyEditor.refresh((AbstractTab) ts.getSelectedTab());
 		mainLayout.addComponent(propertyEditor);
 
-		ts.addSelectedTabChangeListener(new SelectedTabChangeListener() {
-			public void selectedTabChange(SelectedTabChangeEvent event) {
-				propertyEditor.refresh((AbstractTab) ts.getSelectedTab());
-			}
-		});
+//		ts.addSelectedTabChangeListener(new SelectedTabChangeListener() {
+//			public void selectedTabChange(SelectedTabChangeEvent event) {
+//				propertyEditor.refresh((AbstractTab) ts.getSelectedTab());
+//			}
+//		});
 	}
 
-	private static Container createTestContainer() {
-		IndexedContainer cont = new IndexedContainer();
-		cont.addContainerProperty(CAPTION_PROPERTY, String.class, null);
-		cont.addContainerProperty(ICON_PROPERTY, Resource.class, null);
+//	private static Container createTestContainer() {
+//		IndexedContainer cont = new IndexedContainer();
+//		cont.addContainerProperty(CAPTION_PROPERTY, String.class, null);
+//		cont.addContainerProperty(ICON_PROPERTY, Resource.class, null);
+//
+//		for (int i = 0; i < DOCUMENTS.length; i++) {
+//			String name = DOCUMENTS[i++];
+//			String id = DOCUMENTS[i];
+//			Item item = cont.addItem(id);
+//			valuateTestContainerItem(item, name, id);
+//
+//		}
+//		return cont;
+//	}
 
-		for (int i = 0; i < DOCUMENTS.length; i++) {
-			String name = DOCUMENTS[i++];
-			String id = DOCUMENTS[i];
-			Item item = cont.addItem(id);
-			valuateTestContainerItem(item, name, id);
-
-		}
-		return cont;
-	}
-
-	private static void valuateTestContainerItem(Item item, String name,
-			String iconName) {
-		item.getItemProperty(CAPTION_PROPERTY).setValue(name);
-		item.getItemProperty(ICON_PROPERTY).setValue(
-				new ThemeResource("../runo/icons/16/" + iconName));
-	}
+//	private static void valuateTestContainerItem(Item item, String name,
+//			String iconName) {
+//		item.getItemProperty(CAPTION_PROPERTY).setValue(name);
+//		item.getItemProperty(ICON_PROPERTY).setValue(
+//				new ThemeResource("../runo/icons/16/" + iconName));
+//	}
 
 	public static Label createCaptionLabel(FlexibleOptionGroupItemComponent fog) {
 		Label captionLabel = new Label();
@@ -142,7 +134,7 @@ public class FlexibleOptionGroupUI extends UI {
 
 			public void layoutClick(LayoutClickEvent event) {
 				FlexibleOptionGroupItemComponent c = null;
-				boolean allowUnselection = flexibleOptionGroup.isMultiSelect();
+				boolean allowUnselection = false; //flexibleOptionGroup.isMultiSelect();
 				if (event.getChildComponent() instanceof FlexibleOptionGroupItemComponent) {
 					c = (FlexibleOptionGroupItemComponent) event
 							.getChildComponent();
@@ -160,7 +152,7 @@ public class FlexibleOptionGroupUI extends UI {
 					Object itemId = c.getItemId();
 					if (flexibleOptionGroup.isSelected(itemId)
 							&& allowUnselection) {
-						flexibleOptionGroup.unselect(itemId);
+						flexibleOptionGroup.deselect(itemId);
 					} else {
 						flexibleOptionGroup.select(itemId);
 					}
@@ -171,9 +163,9 @@ public class FlexibleOptionGroupUI extends UI {
 		public AbstractTab(String caption) {
 			setCaption(caption);
 			setMargin(true);
-			flexibleOptionGroup = new FlexibleOptionGroup(createTestContainer());
-			flexibleOptionGroup.setItemCaptionPropertyId(CAPTION_PROPERTY);
-			flexibleOptionGroup.setItemIconPropertyId(ICON_PROPERTY);
+//			flexibleOptionGroup = new FlexibleOptionGroup(createTestContainer());
+//			flexibleOptionGroup.setItemCaptionPropertyId(CAPTION_PROPERTY);
+//			flexibleOptionGroup.setItemIconPropertyId(ICON_PROPERTY);
 		}
 	}
 
@@ -184,13 +176,13 @@ public class FlexibleOptionGroupUI extends UI {
 		public GridLayoutTab() {
 			super("GridLayout");
 
-			Item otherItem = flexibleOptionGroup.addItem("other");
-			valuateTestContainerItem(otherItem, "other", "document.png");
+//			Item otherItem = flexibleOptionGroup.addItem("other");
+//			valuateTestContainerItem(otherItem, "other", "document.png");
 
 			layout = new GridLayout(2, 1);
 			layout.setWidth("100%");
 			layout.setColumnExpandRatio(1, 1);
-			layout.addLayoutClickListener(layoutClickListener);
+//			layout.addLayoutClickListener(layoutClickListener);
 			addComponent(layout);
 
 			for (Iterator<FlexibleOptionGroupItemComponent> iter = flexibleOptionGroup
@@ -199,9 +191,9 @@ public class FlexibleOptionGroupUI extends UI {
 				layout.addComponent(c);
 				if ("other".equals(c.getItemId())) {
 					layout.setComponentAlignment(c, Alignment.MIDDLE_CENTER);
-					HorizontalLayout otherLayout = createOtherItemLayout(otherItem);
-					otherLayout.setData(c);
-					layout.addComponent(otherLayout);
+//					HorizontalLayout otherLayout = createOtherItemLayout(otherItem);
+//					otherLayout.setData(c);
+//					layout.addComponent(otherLayout);
 				} else {
 					layout.addComponent(createCaptionLabel(c));
 				}
@@ -210,76 +202,21 @@ public class FlexibleOptionGroupUI extends UI {
 
 		}
 
-		private HorizontalLayout createOtherItemLayout(Item otherItem) {
-			HorizontalLayout otherLayout = new HorizontalLayout();
-			Label otherIcon = new Label();
-			otherIcon.setWidth("16px");
-			otherIcon.setIcon((Resource) otherItem.getItemProperty(
-					ICON_PROPERTY).getValue());
-			otherLayout.addComponent(otherIcon);
-			otherLayout.setComponentAlignment(otherIcon,
-					Alignment.MIDDLE_CENTER);
-			TextField otherTextField = new TextField();
-			otherTextField.setInputPrompt("Other");
-			otherLayout.addComponent(otherTextField);
-			return otherLayout;
-		}
+//		private HorizontalLayout createOtherItemLayout(Item otherItem) {
+//			HorizontalLayout otherLayout = new HorizontalLayout();
+//			Label otherIcon = new Label();
+//			otherIcon.setWidth("16px");
+//			otherIcon.setIcon((Resource) otherItem.getItemProperty(
+//					ICON_PROPERTY).getValue());
+//			otherLayout.addComponent(otherIcon);
+//			otherLayout.setComponentAlignment(otherIcon,
+//					Alignment.MIDDLE_CENTER);
+//			TextField otherTextField = new TextField();
+//			otherTextField.setInputPrompt("Other");
+//			otherLayout.addComponent(otherTextField);
+//			return otherLayout;
+//		}
 
-	}
-
-	private static class TableExampleTab extends AbstractTab {
-
-		public TableExampleTab() {
-			super("Table");
-
-			final Table table = new Table(null,
-					flexibleOptionGroup.getContainerDataSource());
-
-			flexibleOptionGroup = new FlexibleOptionGroup(createTestContainer()) {
-				public void setImmediate(boolean immediate) {
-					super.setImmediate(immediate);
-					table.setImmediate(true);
-				}
-
-				public void setMultiSelect(boolean multiSelect) {
-					super.setMultiSelect(multiSelect);
-					table.setMultiSelect(multiSelect);
-				}
-
-				public void setEnabled(boolean enabled) {
-					super.setEnabled(enabled);
-					table.setEnabled(enabled);
-				}
-
-				public void setReadOnly(boolean readOnly) {
-					super.setReadOnly(readOnly);
-					table.setReadOnly(readOnly);
-				}
-			};
-			flexibleOptionGroup.setItemCaptionPropertyId(CAPTION_PROPERTY);
-			flexibleOptionGroup.setItemIconPropertyId(ICON_PROPERTY);
-
-			flexibleOptionGroup.setImmediate(true);
-			flexibleOptionGroup
-					.setPropertyDataSource(new ObjectProperty<Object>(null,
-							Object.class));
-
-			table.setSelectable(true);
-			table.setPropertyDataSource(flexibleOptionGroup
-					.getPropertyDataSource());
-			table.addGeneratedColumn(SELECTION_PROPERTY, new ColumnGenerator() {
-				public Component generateCell(Table source, Object itemId,
-						Object columnId) {
-					return flexibleOptionGroup.getItemComponent(itemId);
-				}
-			});
-			table.setRowHeaderMode(Table.RowHeaderMode.HIDDEN);
-			table.setItemIconPropertyId(ICON_PROPERTY);
-			table.setVisibleColumns(new Object[] { SELECTION_PROPERTY,
-					CAPTION_PROPERTY });
-			table.setColumnHeader(SELECTION_PROPERTY, "");
-			addComponent(table);
-		}
 	}
 
 	private static class HorizontalOptionGroupTab extends AbstractTab {
@@ -290,7 +227,7 @@ public class FlexibleOptionGroupUI extends UI {
 			super("HorizontalLayout");
 
 			layout = new HorizontalLayout();
-			layout.addLayoutClickListener(layoutClickListener);
+//			layout.addLayoutClickListener(layoutClickListener);
 			addComponent(layout);
 
 			for (Iterator<FlexibleOptionGroupItemComponent> iter = flexibleOptionGroup
@@ -313,7 +250,7 @@ public class FlexibleOptionGroupUI extends UI {
 			setSizeFull();
 
 			layout = new AbsoluteLayout();
-			layout.addLayoutClickListener(layoutClickListener);
+//			layout.addLayoutClickListener(layoutClickListener);
 			layout.setSizeFull();
 			addComponent(layout);
 
@@ -333,7 +270,7 @@ public class FlexibleOptionGroupUI extends UI {
 	}
 
 	private static class FlexibleOptionGroupPropertyEditor extends
-			VerticalLayout implements ValueChangeListener {
+			VerticalLayout implements HasValue.ValueChangeListener {
 
 		private AbstractTab tab;
 
@@ -346,14 +283,11 @@ public class FlexibleOptionGroupUI extends UI {
 			// immediateCheckBox.addListener(this);
 			// immediateCheckBox.setImmediate(true);
 			// addComponent(immediateCheckBox);
-			enableCheckBox.addValueChangeListener(this);
-			enableCheckBox.setImmediate(true);
+//			enableCheckBox.addValueChangeListener(this);
 			addComponent(enableCheckBox);
-			readOnlyCheckBox.addValueChangeListener(this);
-			readOnlyCheckBox.setImmediate(true);
+//			readOnlyCheckBox.addValueChangeListener(this);
 			addComponent(readOnlyCheckBox);
-			multiSelectCheckBox.addValueChangeListener(this);
-			multiSelectCheckBox.setImmediate(true);
+//			multiSelectCheckBox.addValueChangeListener(this);
 			addComponent(multiSelectCheckBox);
 		}
 
@@ -363,20 +297,20 @@ public class FlexibleOptionGroupUI extends UI {
 			// immediateCheckBox.setValue(fop.isImmediate());
 			enableCheckBox.setValue(fop.isEnabled());
 			readOnlyCheckBox.setValue(fop.isReadOnly());
-			multiSelectCheckBox.setValue(fop.isMultiSelect());
+//			multiSelectCheckBox.setValue(fop.isMultiSelect());
 		}
 
-		public void valueChange(ValueChangeEvent event) {
+		public void valueChange(HasValue.ValueChangeEvent event) {
 			FlexibleOptionGroup fop = tab.flexibleOptionGroup;
 			// if (immediateCheckBox == event.getProperty()) {
 			// fop.setImmediate(immediateCheckBox.getValue());
 			// } else
-			if (enableCheckBox == event.getProperty()) {
+			if (enableCheckBox == event.getComponent()) {
 				fop.setEnabled(enableCheckBox.getValue());
-			} else if (readOnlyCheckBox == event.getProperty()) {
+			} else if (readOnlyCheckBox == event.getComponent()) {
 				fop.setReadOnly(readOnlyCheckBox.getValue());
-			} else if (multiSelectCheckBox == event.getProperty()) {
-				fop.setMultiSelect(multiSelectCheckBox.getValue());
+			} else if (multiSelectCheckBox == event.getComponent()) {
+//				fop.setMultiSelect(multiSelectCheckBox.getValue());
 			}
 
 		}

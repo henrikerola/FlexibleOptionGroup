@@ -1,21 +1,14 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.util.IndexedContainer;
-import com.vaadin.server.ClientConnector;
-import com.vaadin.server.PaintException;
-import com.vaadin.server.PaintTarget;
-import com.vaadin.shared.AbstractFieldState;
-import com.vaadin.shared.communication.SharedState;
+import com.vaadin.shared.ui.optiongroup.CheckBoxGroupState;
+import com.vaadin.ui.CheckBoxGroup;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HasComponents;
-import com.vaadin.ui.OptionGroup;
 
 /**
  * The goal of {@link FlexibleOptionGroup} is to provide a very flexible way to
@@ -39,7 +32,7 @@ import com.vaadin.ui.OptionGroup;
  * @author Maciej Przepióra / Vaadin Ltd
  * 
  */
-public class FlexibleOptionGroup extends OptionGroup {
+public class FlexibleOptionGroup extends CheckBoxGroup {
 
 	protected Map<Object, FlexibleOptionGroupItemComponent> itemComponentMap = new HashMap<Object, FlexibleOptionGroupItemComponent>();
 	private static int nextId = 0;
@@ -50,38 +43,23 @@ public class FlexibleOptionGroup extends OptionGroup {
 	 */
 	public FlexibleOptionGroup() {
 		id = nextId++;
-		setContainerDataSource(new IndexedContainer());
 	}
 
-	/**
-	 * Creates a {@link FlexibleOptionGroup} and binds it to the given
-	 * Container.
-	 * 
-	 * @param dataSource
-	 */
-	public FlexibleOptionGroup(Container dataSource) {
-		id = nextId++;
-		setContainerDataSource(dataSource);
-	}
-
-	public FlexibleOptionGroup(Collection<?> options) {
-		id = nextId++;
-		final Container c = new IndexedContainer();
-		if (options != null) {
-			for (final Iterator<?> i = options.iterator(); i.hasNext();) {
-				c.addItem(i.next());
-			}
-		}
-		setContainerDataSource(c);
-	}
-
-	@Override
-	public void setContainerDataSource(Container newDataSource) {
-		super.setContainerDataSource(newDataSource);
-		if (itemComponentMap != null) {
-			itemComponentMap.clear();
-		}
-	}
+//	public FlexibleOptionGroup(Container dataSource) {
+//		id = nextId++;
+//		setContainerDataSource(dataSource);
+//	}
+//
+//	public FlexibleOptionGroup(Collection<?> options) {
+//		id = nextId++;
+//		final Container c = new IndexedContainer();
+//		if (options != null) {
+//			for (final Iterator<?> i = options.iterator(); i.hasNext();) {
+//				c.addItem(i.next());
+//			}
+//		}
+//		setContainerDataSource(c);
+//	}
 
 	protected FlexibleOptionGroupItemComponent getFlexibleOptionGroupItem(
 			Object itemId) {
@@ -96,63 +74,38 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	public boolean removeItem(Object itemId)
-			throws UnsupportedOperationException {
-		boolean returnValue = super.removeItem(itemId);
-		if (returnValue) {
-			itemComponentMap.remove(itemId);
-		}
-		return returnValue;
-	}
-
-	@Override
-	public boolean removeAllItems() throws UnsupportedOperationException {
-		boolean returnValue = super.removeAllItems();
-		if (returnValue) {
-			itemComponentMap.clear();
-		}
-		return returnValue;
-	}
-
-	@Override
 	public void setParent(HasComponents parent) {
 		throw new UnsupportedOperationException(
 				"The FlexibleOptionGroup component cannot be attached to an Application.");
 	}
 
-	@Override
-	public void paintContent(PaintTarget target) throws PaintException {
-	}
-
-	@Override
-	public void changeVariables(Object source, Map<String, Object> variables) {
-	}
-
 	public FlexibleOptionGroupItemComponent getItemComponent(Object itemId) {
-		if (!containsId(itemId)) {
-			throw new IllegalArgumentException("");
-		}
+//		if (!containsId(itemId)) {
+//			throw new IllegalArgumentException("");
+//		}
 		return getFlexibleOptionGroupItem(itemId);
 	}
 
 	public Iterator<FlexibleOptionGroupItemComponent> getItemComponentIterator() {
 
-		return new Iterator<FlexibleOptionGroupItemComponent>() {
+//		return new Iterator<FlexibleOptionGroupItemComponent>() {
+//
+//			private Iterator<?> iterator = getItemIds().iterator();
+//
+//			public boolean hasNext() {
+//				return iterator.hasNext();
+//			}
+//
+//			public FlexibleOptionGroupItemComponent next() {
+//				return getFlexibleOptionGroupItem(iterator.next());
+//			}
+//
+//			public void remove() {
+//				throw new UnsupportedOperationException();
+//			}
+//		};
 
-			private Iterator<?> iterator = getItemIds().iterator();
-
-			public boolean hasNext() {
-				return iterator.hasNext();
-			}
-
-			public FlexibleOptionGroupItemComponent next() {
-				return getFlexibleOptionGroupItem(iterator.next());
-			}
-
-			public void remove() {
-				throw new UnsupportedOperationException();
-			}
-		};
+		return null;
 	}
 
 	@Override
@@ -162,7 +115,7 @@ public class FlexibleOptionGroup extends OptionGroup {
 	}
 
 	@Override
-	protected AbstractFieldState getState(boolean markAsDirty) {
+	protected CheckBoxGroupState getState(boolean markAsDirty) {
 		if (markAsDirty) {
 			markItemComponentsAsDirty();
 		}

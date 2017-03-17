@@ -9,5 +9,5 @@ public class FlexibleOptionGroupItemComponentState extends
 
 	public boolean selected;
 
-	public boolean multiSelect;
+	public boolean readOnly;
 }

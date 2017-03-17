@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -22,6 +23,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
@@ -36,6 +38,7 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 @Title("FlexibleOptionGroup")
 @Theme("valo")
+@PreserveOnRefresh
 public class FlexibleOptionGroupUI extends UI {
 	
     /**
@@ -67,6 +70,32 @@ public class FlexibleOptionGroupUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
+		if (true) {
+			VerticalLayout layout = new VerticalLayout();
+
+			layout.addComponent(new Label("Hello"));
+
+			RadioButtonGroup<String> radioButtonGroup = new RadioButtonGroup<>("My RadioButtonGroup");
+
+			radioButtonGroup.setItemCaptionGenerator(s -> s + "!");
+
+			radioButtonGroup.setItems("1", "3");
+
+//			layout.addComponent(radioButtonGroup);
+
+			FlexibleRadioButtonGroup<String> flexibleRadioButtonGroup = new FlexibleRadioButtonGroup<>();
+			flexibleRadioButtonGroup.setItemCaptionGenerator(s -> s + "!");
+			flexibleRadioButtonGroup.setItems("1", "3");
+
+			layout.addComponent(flexibleRadioButtonGroup.getFlexibleOptionGroupItem("1"));
+			layout.addComponent(flexibleRadioButtonGroup.getFlexibleOptionGroupItem("2"));
+
+			layout.addComponent(new Label("Moi"));
+
+			setContent(layout);
+			return;
+		}
+
 		VerticalLayout mainLayout = new VerticalLayout();
 		mainLayout.setSizeFull();
 		mainLayout.setMargin(true);

@@ -43,7 +43,7 @@ public class FlexibleOptionGroupItemComponentConnector extends
 	@Override
 	public void onStateChanged(StateChangeEvent stateChangeEvent) {
 		super.onStateChanged(stateChangeEvent);
-		getWidget().setMultiSelect(getState().multiSelect);
+//		getWidget().setMultiSelect(getState().multiSelect);
 		getWidget().setOwnerId("" + getState().ownerId);
 		getWidget().setSelected(getState().selected);
 //		getWidget().setEnabled(isEnabled() && !isReadOnly());

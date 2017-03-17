@@ -1,10 +1,9 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
-import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
-import com.vaadin.server.Resource;
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.AbstractListing;
 
 /**
  * {@link FlexibleOptionGroupItemComponent} represents a radio button or a check
@@ -15,19 +14,26 @@ import com.vaadin.ui.AbstractComponent;
  */
 public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 
-	private final FlexibleOptionGroup owner;
-	private final Object itemId;
+	private final AbstractListing<?> owner;
+	private final Object             itemId;
 
 	private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
 
 		public void selected(boolean selected) {
-			if (selected) {
-				owner.select(itemId);
-			} else {
-				owner.deselect(itemId);
-			}
+//			if (selected) {
+//				owner.select(itemId);
+//			} else {
+//				owner.deselect(itemId);
+//			}
 		}
 	};
+
+	protected FlexibleOptionGroupItemComponent(FlexibleRadioButtonGroup owner,
+	                                           Object itemId) {
+		this.owner = owner;
+		this.itemId = itemId;
+		registerRpc(rpc);
+	}
 
 	protected FlexibleOptionGroupItemComponent(FlexibleOptionGroup owner,
 			Object itemId) {
@@ -68,9 +74,9 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	 * @return the owner FlexibleOptionGroup of this
 	 *         FlexibleOptionGroupItemComponent
 	 */
-	public FlexibleOptionGroup getOwner() {
-		return owner;
-	}
+//	public FlexibleOptionGroup getOwner() {
+//		return owner;
+//	}
 
 	/**
 	 * Sets the caption of this FlexibleOptionGroupItemComponent. The method

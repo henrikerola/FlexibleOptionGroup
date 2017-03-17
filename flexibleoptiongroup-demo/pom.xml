@@ -168,6 +168,7 @@
 					<compileReport>true</compileReport>
 					<strict>true</strict>
 					<runTarget>http://localhost:8080/</runTarget>
+					<force>true</force>
 				</configuration>
 				<executions>
 					<!-- You are free to mark this as permanently ignored in Eclipse -->

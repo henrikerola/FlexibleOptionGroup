@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.vaadin.data.provider.DataProvider;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.shared.ui.optiongroup.RadioButtonGroupState;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.RadioButtonGroup;
@@ -85,6 +86,13 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
     }
 
     public FlexibleRadioButtonGroupItemComponent getItemComponent(T itemId) {
+        if (getDataProvider() instanceof ListDataProvider) {
+            ListDataProvider listDataProvider = (ListDataProvider) getDataProvider();
+            if (!listDataProvider.getItems().contains(itemId)) {
+                throw new IllegalArgumentException("");
+            }
+        }
+
         return getFlexibleOptionGroupItem(itemId);
     }
 

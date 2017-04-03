@@ -82,7 +82,7 @@ public class DefaultView extends VerticalLayout implements View {
     //				new ThemeResource("../runo/icons/16/" + iconName));
     //	}
 
-    public static Label createCaptionLabel(FlexibleOptionGroupItemComponent fog) {
+    public static Label createCaptionLabel(FlexibleCheckBoxGroupItemComponent fog) {
         Label captionLabel = new Label();
         captionLabel.setData(fog);
         captionLabel.setIcon(fog.getIcon());
@@ -98,21 +98,21 @@ public class DefaultView extends VerticalLayout implements View {
 
     private static abstract class AbstractTab extends VerticalLayout {
 
-        protected FlexibleOptionGroup flexibleOptionGroup;
+        protected FlexibleCheckBoxGroup flexibleOptionGroup;
 
         protected LayoutEvents.LayoutClickListener layoutClickListener = new LayoutEvents.LayoutClickListener() {
 
             public void layoutClick(LayoutEvents.LayoutClickEvent event) {
-                FlexibleOptionGroupItemComponent c = null;
+                FlexibleCheckBoxGroupItemComponent c = null;
                 boolean allowUnselection = false; //flexibleOptionGroup.isMultiSelect();
-                if (event.getChildComponent() instanceof FlexibleOptionGroupItemComponent) {
-                    c = (FlexibleOptionGroupItemComponent) event
+                if (event.getChildComponent() instanceof FlexibleCheckBoxGroupItemComponent) {
+                    c = (FlexibleCheckBoxGroupItemComponent) event
                             .getChildComponent();
                 } else if (event.getChildComponent() instanceof AbstractComponent) {
                     Object data = ((AbstractComponent) event
                             .getChildComponent()).getData();
-                    if (data instanceof FlexibleOptionGroupItemComponent) {
-                        c = (FlexibleOptionGroupItemComponent) data;
+                    if (data instanceof FlexibleCheckBoxGroupItemComponent) {
+                        c = (FlexibleCheckBoxGroupItemComponent) data;
                     }
                     if (event.getChildComponent() instanceof HorizontalLayout) {
                         allowUnselection = false;
@@ -155,9 +155,9 @@ public class DefaultView extends VerticalLayout implements View {
             //			layout.addLayoutClickListener(layoutClickListener);
             addComponent(layout);
 
-            for (Iterator<FlexibleOptionGroupItemComponent> iter = flexibleOptionGroup
+            for (Iterator<FlexibleCheckBoxGroupItemComponent> iter = flexibleOptionGroup
                     .getItemComponentIterator(); iter.hasNext();) {
-                FlexibleOptionGroupItemComponent c = iter.next();
+                FlexibleCheckBoxGroupItemComponent c = iter.next();
                 layout.addComponent(c);
                 if ("other".equals(c.getItemId())) {
                     layout.setComponentAlignment(c, Alignment.MIDDLE_CENTER);
@@ -200,9 +200,9 @@ public class DefaultView extends VerticalLayout implements View {
             //			layout.addLayoutClickListener(layoutClickListener);
             addComponent(layout);
 
-            for (Iterator<FlexibleOptionGroupItemComponent> iter = flexibleOptionGroup
+            for (Iterator<FlexibleCheckBoxGroupItemComponent> iter = flexibleOptionGroup
                     .getItemComponentIterator(); iter.hasNext();) {
-                FlexibleOptionGroupItemComponent c = iter.next();
+                FlexibleCheckBoxGroupItemComponent c = iter.next();
                 layout.addComponent(c);
                 layout.addComponent(createCaptionLabel(c));
             }
@@ -226,9 +226,9 @@ public class DefaultView extends VerticalLayout implements View {
 
             int x = 10;
             int y = 10;
-            for (Iterator<FlexibleOptionGroupItemComponent> iter = flexibleOptionGroup
+            for (Iterator<FlexibleCheckBoxGroupItemComponent> iter = flexibleOptionGroup
                     .getItemComponentIterator(); iter.hasNext();) {
-                FlexibleOptionGroupItemComponent c = iter.next();
+                FlexibleCheckBoxGroupItemComponent c = iter.next();
                 layout.addComponent(c, "top: " + y + "; left: " + x);
                 layout.addComponent(createCaptionLabel(c), "top: " + (y + 15)
                         + "; left: " + (x + 20));
@@ -263,7 +263,7 @@ public class DefaultView extends VerticalLayout implements View {
 
         public void refresh(AbstractTab tab) {
             this.tab = tab;
-            FlexibleOptionGroup fop = tab.flexibleOptionGroup;
+            FlexibleCheckBoxGroup fop = tab.flexibleOptionGroup;
             // immediateCheckBox.setValue(fop.isImmediate());
             enableCheckBox.setValue(fop.isEnabled());
             readOnlyCheckBox.setValue(fop.isReadOnly());
@@ -271,7 +271,7 @@ public class DefaultView extends VerticalLayout implements View {
         }
 
         public void valueChange(HasValue.ValueChangeEvent event) {
-            FlexibleOptionGroup fop = tab.flexibleOptionGroup;
+            FlexibleCheckBoxGroup fop = tab.flexibleOptionGroup;
             // if (immediateCheckBox == event.getProperty()) {
             // fop.setImmediate(immediateCheckBox.getValue());
             // } else

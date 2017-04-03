@@ -96,7 +96,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
         return getFlexibleOptionGroupItem(itemId);
     }
 
-    public Iterator<FlexibleOptionGroupItemComponent> getItemComponentIterator() {
+    public Iterator<FlexibleRadioButtonGroupItemComponent> getItemComponentIterator() {
 
 //        		return new Iterator<FlexibleOptionGroupItemComponent>() {
 //

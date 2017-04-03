@@ -9,7 +9,7 @@ import com.vaadin.shared.ui.Connect;
 /**
  * @author Henri Kerola / Vaadin
  */
-@Connect (FlexibleRadioButtonGroupItemComponent.class)
+@Connect(FlexibleRadioButtonGroupItemComponent.class)
 public class FlexibleRadioButtonGroupItemComponentConnector extends AbstractComponentConnector {
 
     @Override

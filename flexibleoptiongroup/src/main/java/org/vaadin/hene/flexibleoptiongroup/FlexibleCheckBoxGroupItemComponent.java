@@ -1,42 +1,34 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
+import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
 import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.AbstractListing;
 
 /**
- * {@link FlexibleOptionGroupItemComponent} represents a radio button or a check
- * box of an item in {@link FlexibleOptionGroup}.
+ * {@link FlexibleCheckBoxGroupItemComponent} represents a radio button or a check
+ * box of an item in {@link FlexibleCheckBoxGroup}.
  * 
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class FlexibleOptionGroupItemComponent extends AbstractComponent {
+public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 
-	private final AbstractListing<?> owner;
-	private final Object             itemId;
+	private final FlexibleCheckBoxGroup<T> owner;
+	private final T itemId;
 
 	private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
 
 		public void selected(boolean selected) {
-//			if (selected) {
-//				owner.select(itemId);
-//			} else {
-//				owner.deselect(itemId);
-//			}
+			if (selected) {
+				owner.select(itemId);
+			} else {
+				owner.deselect(itemId);
+			}
 		}
 	};
 
-	protected FlexibleOptionGroupItemComponent(FlexibleRadioButtonGroup owner,
-	                                           Object itemId) {
-		this.owner = owner;
-		this.itemId = itemId;
-		registerRpc(rpc);
-	}
-
-	protected FlexibleOptionGroupItemComponent(FlexibleOptionGroup owner,
-			Object itemId) {
+	protected FlexibleCheckBoxGroupItemComponent(FlexibleCheckBoxGroup<T> owner, T itemId) {
 		this.owner = owner;
 		this.itemId = itemId;
 		registerRpc(rpc);
@@ -63,7 +55,7 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	 * 
 	 * @return the itemId of this FlexibleOptionGroupItemComponent
 	 */
-	public Object getItemId() {
+	public T getItemId() {
 		return itemId;
 	}
 
@@ -74,9 +66,9 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 	 * @return the owner FlexibleOptionGroup of this
 	 *         FlexibleOptionGroupItemComponent
 	 */
-//	public FlexibleOptionGroup getOwner() {
-//		return owner;
-//	}
+	public FlexibleCheckBoxGroup<T> getOwner() {
+		return owner;
+	}
 
 	/**
 	 * Sets the caption of this FlexibleOptionGroupItemComponent. The method
@@ -130,19 +122,9 @@ public class FlexibleOptionGroupItemComponent extends AbstractComponent {
 //	public void setReadOnly(boolean readOnly) {
 //		owner.setReadOnly(readOnly);
 //	}
-//
-//	@Override
-//	public void setImmediate(boolean immediate) {
-//		owner.setImmediate(immediate);
-//	}
-//
-//	@Override
-//	public boolean isImmediate() {
-//		return owner.isImmediate();
-//	}
-//
-//	@Override
-//	public FlexibleOptionGroupItemComponentState getState() {
-//		return (FlexibleOptionGroupItemComponentState) super.getState();
-//	}
+
+	@Override
+	public FlexibleOptionGroupItemComponentState getState() {
+		return (FlexibleOptionGroupItemComponentState) super.getState();
+	}
 }

@@ -4,7 +4,6 @@ import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGro
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
 import com.vaadin.ui.AbstractComponent;
-import com.vaadin.ui.Notification;
 
 /**
  * @author Henri Kerola / Vaadin
@@ -17,7 +16,6 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
     private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
 
         public void selected(boolean selected) {
-            Notification.show("");
             if (selected) {
                 owner.setSelectedItem(itemId);
             } else {

@@ -1,6 +1,6 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
+import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentSelectedServerRpc;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
 import com.vaadin.ui.AbstractComponent;
@@ -13,7 +13,7 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
     private final FlexibleRadioButtonGroup<T> owner;
     private final T itemId;
 
-    private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
+    private FlexibleOptionGroupItemComponentSelectedServerRpc rpc = new FlexibleOptionGroupItemComponentSelectedServerRpc() {
 
         public void selected(boolean selected) {
             if (selected) {
@@ -24,8 +24,7 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
         }
     };
 
-    protected FlexibleRadioButtonGroupItemComponent(FlexibleRadioButtonGroup owner,
-                                               T itemId) {
+    protected FlexibleRadioButtonGroupItemComponent(FlexibleRadioButtonGroup owner, T itemId) {
         this.owner = owner;
         this.itemId = itemId;
         registerRpc(rpc);

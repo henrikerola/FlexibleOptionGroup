@@ -1,6 +1,6 @@
 package org.vaadin.hene.flexibleoptiongroup;
 
-import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentServerRpc;
+import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentSelectedServerRpc;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
 import com.vaadin.ui.AbstractComponent;
@@ -17,7 +17,7 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 	private final FlexibleCheckBoxGroup<T> owner;
 	private final T itemId;
 
-	private FlexibleOptionGroupItemComponentServerRpc rpc = new FlexibleOptionGroupItemComponentServerRpc() {
+	private FlexibleOptionGroupItemComponentSelectedServerRpc rpc = new FlexibleOptionGroupItemComponentSelectedServerRpc() {
 
 		public void selected(boolean selected) {
 			if (selected) {

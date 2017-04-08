@@ -17,7 +17,7 @@ public class FlexibleRadioButtonGroupItemComponentConnector extends AbstractComp
         super.init();
         getWidget().addValueChangeHandler(valueChangeEvent -> {
             boolean checked = valueChangeEvent.getValue();
-            getRpcProxy(FlexibleOptionGroupItemComponentServerRpc.class).selected(checked);
+            getRpcProxy(FlexibleOptionGroupItemComponentSelectedServerRpc.class).selected(checked);
         });
     }
 

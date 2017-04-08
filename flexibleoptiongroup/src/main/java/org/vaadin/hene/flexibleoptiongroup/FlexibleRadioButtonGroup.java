@@ -14,9 +14,10 @@ import com.vaadin.ui.RadioButtonGroup;
 /**
  * @author Henri Kerola / Vaadin
  */
-public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
+public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
+        implements FlexibleOptionGroup<FlexibleRadioButtonGroupItemComponent<T>, T> {
 
-    protected Map<T, FlexibleRadioButtonGroupItemComponent> itemComponentMap = new HashMap<>();
+    protected Map<T, FlexibleRadioButtonGroupItemComponent<T>> itemComponentMap = new HashMap<>();
     private static int nextId = 0;
     final int id;
 
@@ -67,7 +68,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
         id = nextId++;
     }
 
-    protected FlexibleRadioButtonGroupItemComponent getFlexibleOptionGroupItem(
+    protected FlexibleRadioButtonGroupItemComponent<T> getFlexibleOptionGroupItem(
             T itemId) {
         if (!itemComponentMap.containsKey(itemId)) {
             FlexibleRadioButtonGroupItemComponent flexibleOptionGroupItemComponent = new FlexibleRadioButtonGroupItemComponent(
@@ -85,7 +86,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
                 "The FlexibleOptionGroup component cannot be attached to an Application.");
     }
 
-    public FlexibleRadioButtonGroupItemComponent getItemComponent(T itemId) {
+    public FlexibleRadioButtonGroupItemComponent<T> getItemComponent(T itemId) {
         if (getDataProvider() instanceof ListDataProvider) {
             ListDataProvider listDataProvider = (ListDataProvider) getDataProvider();
             if (!listDataProvider.getItems().contains(itemId)) {
@@ -96,7 +97,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
         return getFlexibleOptionGroupItem(itemId);
     }
 
-    public Iterator<FlexibleRadioButtonGroupItemComponent> getItemComponentIterator() {
+    public Iterator<FlexibleRadioButtonGroupItemComponent<T>> getItemComponentIterator() {
 
 //        		return new Iterator<FlexibleOptionGroupItemComponent>() {
 //
@@ -134,7 +135,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T> {
 
     private void markItemComponentsAsDirty() {
         if (itemComponentMap != null) {
-            for (Map.Entry<T, FlexibleRadioButtonGroupItemComponent> e : itemComponentMap
+            for (Map.Entry<T, FlexibleRadioButtonGroupItemComponent<T>> e : itemComponentMap
                     .entrySet()) {
                 e.getValue().markAsDirty();
             }

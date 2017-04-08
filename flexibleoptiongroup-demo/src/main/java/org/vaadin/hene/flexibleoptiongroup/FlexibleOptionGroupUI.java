@@ -34,6 +34,7 @@ public class FlexibleOptionGroupUI extends UI {
 		Navigator navigator = new Navigator(this, this);
 //		navigator.addView("", new DefaultView());
 		navigator.addView("flexibleradiobuttongroup", new FlexibleRadioButtonGroupView());
+		navigator.addView("flexiblecheckboxgroup", new FlexibleCheckBoxGroupView());
 
 		navigator.navigateTo("flexibleradiobuttongroup");
 

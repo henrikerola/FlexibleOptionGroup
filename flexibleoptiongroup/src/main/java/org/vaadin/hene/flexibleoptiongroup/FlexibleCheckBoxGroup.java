@@ -35,7 +35,8 @@ import com.vaadin.ui.HasComponents;
  * @author Maciej Przepióra / Vaadin Ltd
  * 
  */
-public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T> {
+public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T>
+		implements FlexibleOptionGroup<FlexibleCheckBoxGroupItemComponent<T>, T> {
 
 	protected Map<Object, FlexibleCheckBoxGroupItemComponent> itemComponentMap = new HashMap<Object, FlexibleCheckBoxGroupItemComponent>();
 	private static int                                        nextId           = 0;
@@ -89,7 +90,7 @@ public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T> {
 	}
 
 	protected FlexibleCheckBoxGroupItemComponent getFlexibleOptionGroupItem(
-			Object itemId) {
+			T itemId) {
 		if (!itemComponentMap.containsKey(itemId)) {
 			FlexibleCheckBoxGroupItemComponent flexibleOptionGroupItemComponent = new FlexibleCheckBoxGroupItemComponent(
 					this, itemId);
@@ -106,14 +107,15 @@ public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T> {
 				"The FlexibleOptionGroup component cannot be attached to an Application.");
 	}
 
-	public FlexibleCheckBoxGroupItemComponent getItemComponent(Object itemId) {
+	@Override
+	public FlexibleCheckBoxGroupItemComponent getItemComponent(T itemId) {
 //		if (!containsId(itemId)) {
 //			throw new IllegalArgumentException("");
 //		}
 		return getFlexibleOptionGroupItem(itemId);
 	}
 
-	public Iterator<FlexibleCheckBoxGroupItemComponent> getItemComponentIterator() {
+	public Iterator<FlexibleCheckBoxGroupItemComponent<T>> getItemComponentIterator() {
 
 //		return new Iterator<FlexibleOptionGroupItemComponent>() {
 //

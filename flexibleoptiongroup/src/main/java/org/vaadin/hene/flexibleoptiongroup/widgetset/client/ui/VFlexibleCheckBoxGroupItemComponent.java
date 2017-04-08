@@ -10,18 +10,18 @@ import com.google.gwt.user.client.ui.Composite;
  * @author Henri Kerola / Vaadin Ltd
  * 
  */
-public class VFlexibleCheckBoxGroupItemComponent extends Composite implements HasValueChangeHandlers<Boolean> {
+public class VFlexibleCheckBoxGroupItemComponent extends Composite
+		implements HasValueChangeHandlers<Boolean> {
 
-	public static final String CLASSNAME = "v-flexibleoptiongroupitemcomponent";
-
-	protected CheckBox checkbox;
+	private CheckBox checkbox;
 
 	public VFlexibleCheckBoxGroupItemComponent() {
 		checkbox = new CheckBox();
-		checkbox.addStyleName("v-checkbox");
 		initWidget(checkbox);
 
-		setStyleName(CLASSNAME);
+		setStyleName(Constants.CLASSNAME_ITEM_COMPONENT);
+		addStyleName(Constants.CLASSNAME_OPTION);
+		addStyleName("v-checkbox");
 	}
 
 	public void setEnabled(boolean enabled) {

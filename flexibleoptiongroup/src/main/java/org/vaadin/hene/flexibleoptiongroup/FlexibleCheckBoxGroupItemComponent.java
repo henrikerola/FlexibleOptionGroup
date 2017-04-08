@@ -42,12 +42,10 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 //					"The owner FlexibleOptionGroup does not contain an item with itemId '"
 //							+ itemId + "'.");
 //		}
-//
-//		getState().ownerId = owner.id;
-//		getState().selected = owner.isSelected(itemId);
-		getState().enabled = owner.isEnabled() && isEnabled();
-//		getState().multiSelect = owner.isMultiSelect();
-//		getState().readOnly = owner.isReadOnly();
+		getState().ownerId = owner.id;
+		getState().selected = owner.isSelected(itemId);
+		getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(itemId);
+		getState().readOnly = owner.isReadOnly();
 	}
 
 	/**

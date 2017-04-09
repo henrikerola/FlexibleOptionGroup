@@ -11,22 +11,22 @@ import com.vaadin.ui.AbstractComponent;
 public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent {
 
     private final FlexibleRadioButtonGroup<T> owner;
-    private final T itemId;
+    private final T                           item;
 
     private FlexibleOptionGroupItemComponentSelectedServerRpc rpc = new FlexibleOptionGroupItemComponentSelectedServerRpc() {
 
         public void selected(boolean selected) {
             if (selected) {
-                owner.setSelectedItem(itemId);
+                owner.setSelectedItem(item);
             } else {
                 // TODO?
             }
         }
     };
 
-    protected FlexibleRadioButtonGroupItemComponent(FlexibleRadioButtonGroup owner, T itemId) {
+    protected FlexibleRadioButtonGroupItemComponent(FlexibleRadioButtonGroup owner, T item) {
         this.owner = owner;
-        this.itemId = itemId;
+        this.item = item;
         registerRpc(rpc);
     }
 
@@ -45,8 +45,8 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
         //		}
         //
         getState().ownerId = owner.id;
-        getState().selected = owner.isSelected(itemId);
-        getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(itemId);
+        getState().selected = owner.isSelected(item);
+        getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(item);
         getState().readOnly = owner.isReadOnly();
     }
 }

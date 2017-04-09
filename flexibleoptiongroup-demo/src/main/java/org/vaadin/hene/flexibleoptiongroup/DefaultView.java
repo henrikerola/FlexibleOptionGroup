@@ -119,12 +119,12 @@ public class DefaultView extends VerticalLayout implements View {
                     }
                 }
                 if (c != null) {
-                    Object itemId = c.getItemId();
-                    if (flexibleOptionGroup.isSelected(itemId)
+                    Object item = c.getItem();
+                    if (flexibleOptionGroup.isSelected(item)
                             && allowUnselection) {
-                        flexibleOptionGroup.deselect(itemId);
+                        flexibleOptionGroup.deselect(item);
                     } else {
-                        flexibleOptionGroup.select(itemId);
+                        flexibleOptionGroup.select(item);
                     }
                 }
             }
@@ -159,7 +159,7 @@ public class DefaultView extends VerticalLayout implements View {
                     .getItemComponentIterator(); iter.hasNext();) {
                 FlexibleCheckBoxGroupItemComponent c = iter.next();
                 layout.addComponent(c);
-                if ("other".equals(c.getItemId())) {
+                if ("other".equals(c.getItem())) {
                     layout.setComponentAlignment(c, Alignment.MIDDLE_CENTER);
                     //					HorizontalLayout otherLayout = createOtherItemLayout(otherItem);
                     //					otherLayout.setData(c);

@@ -38,8 +38,9 @@ import com.vaadin.ui.HasComponents;
 public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T>
 		implements FlexibleOptionGroup<FlexibleCheckBoxGroupItemComponent<T>, T> {
 
-	protected Map<Object, FlexibleCheckBoxGroupItemComponent> itemComponentMap = new HashMap<Object, FlexibleCheckBoxGroupItemComponent>();
-	private static int                                        nextId           = 0;
+	private static int nextId = 0;
+
+	private final Map<Object, FlexibleCheckBoxGroupItemComponent> itemComponentMap = new HashMap<>();
 	final int id;
 
 	/**
@@ -90,14 +91,14 @@ public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T>
 	}
 
 	protected FlexibleCheckBoxGroupItemComponent getFlexibleOptionGroupItem(
-			T itemId) {
-		if (!itemComponentMap.containsKey(itemId)) {
+			T item) {
+		if (!itemComponentMap.containsKey(item)) {
 			FlexibleCheckBoxGroupItemComponent flexibleOptionGroupItemComponent = new FlexibleCheckBoxGroupItemComponent(
-					this, itemId);
-			itemComponentMap.put(itemId, flexibleOptionGroupItemComponent);
+					this, item);
+			itemComponentMap.put(item, flexibleOptionGroupItemComponent);
 			return flexibleOptionGroupItemComponent;
 		} else {
-			return itemComponentMap.get(itemId);
+			return itemComponentMap.get(item);
 		}
 	}
 
@@ -108,11 +109,11 @@ public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T>
 	}
 
 	@Override
-	public FlexibleCheckBoxGroupItemComponent getItemComponent(T itemId) {
-//		if (!containsId(itemId)) {
+	public FlexibleCheckBoxGroupItemComponent getItemComponent(T item) {
+//		if (!containsId(item)) {
 //			throw new IllegalArgumentException("");
 //		}
-		return getFlexibleOptionGroupItem(itemId);
+		return getFlexibleOptionGroupItem(item);
 	}
 
 	public Iterator<FlexibleCheckBoxGroupItemComponent<T>> getItemComponentIterator() {

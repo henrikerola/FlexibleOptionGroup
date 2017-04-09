@@ -12,7 +12,7 @@ import com.vaadin.ui.IconGenerator;
  */
 public interface FlexibleOptionGroup<C extends Component, T> extends HasDataProvider<T> {
 
-    C getItemComponent(T itemId);
+    C getItemComponent(T item);
 
     Iterator<C> getItemComponentIterator();
 

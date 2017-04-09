@@ -15,22 +15,22 @@ import com.vaadin.ui.AbstractComponent;
 public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 
 	private final FlexibleCheckBoxGroup<T> owner;
-	private final T itemId;
+	private final T item;
 
 	private FlexibleOptionGroupItemComponentSelectedServerRpc rpc = new FlexibleOptionGroupItemComponentSelectedServerRpc() {
 
 		public void selected(boolean selected) {
 			if (selected) {
-				owner.select(itemId);
+				owner.select(item);
 			} else {
-				owner.deselect(itemId);
+				owner.deselect(item);
 			}
 		}
 	};
 
-	protected FlexibleCheckBoxGroupItemComponent(FlexibleCheckBoxGroup<T> owner, T itemId) {
+	protected FlexibleCheckBoxGroupItemComponent(FlexibleCheckBoxGroup<T> owner, T item) {
 		this.owner = owner;
-		this.itemId = itemId;
+		this.item = item;
 		registerRpc(rpc);
 	}
 
@@ -43,18 +43,18 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 //							+ itemId + "'.");
 //		}
 		getState().ownerId = owner.id;
-		getState().selected = owner.isSelected(itemId);
-		getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(itemId);
+		getState().selected = owner.isSelected(item);
+		getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(item);
 		getState().readOnly = owner.isReadOnly();
 	}
 
 	/**
-	 * Returns the itemId of this FlexibleOptionGroupItemComponent.
+	 * Returns the item of this FlexibleOptionGroupItemComponent.
 	 * 
-	 * @return the itemId of this FlexibleOptionGroupItemComponent
+	 * @return the item of this FlexibleOptionGroupItemComponent
 	 */
-	public T getItemId() {
-		return itemId;
+	public T getItem() {
+		return item;
 	}
 
 	/**

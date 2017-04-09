@@ -69,14 +69,13 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
     }
 
     protected FlexibleRadioButtonGroupItemComponent<T> getFlexibleOptionGroupItem(
-            T itemId) {
-        if (!itemComponentMap.containsKey(itemId)) {
-            FlexibleRadioButtonGroupItemComponent flexibleOptionGroupItemComponent = new FlexibleRadioButtonGroupItemComponent(
-                    this, itemId);
-            itemComponentMap.put(itemId, flexibleOptionGroupItemComponent);
-            return flexibleOptionGroupItemComponent;
+            T item) {
+        if (!itemComponentMap.containsKey(item)) {
+            FlexibleRadioButtonGroupItemComponent itemComponent = new FlexibleRadioButtonGroupItemComponent(this, item);
+            itemComponentMap.put(item, itemComponent);
+            return itemComponent;
         } else {
-            return itemComponentMap.get(itemId);
+            return itemComponentMap.get(item);
         }
     }
 
@@ -86,15 +85,15 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
                 "The FlexibleOptionGroup component cannot be attached to an Application.");
     }
 
-    public FlexibleRadioButtonGroupItemComponent<T> getItemComponent(T itemId) {
+    public FlexibleRadioButtonGroupItemComponent<T> getItemComponent(T item) {
         if (getDataProvider() instanceof ListDataProvider) {
             ListDataProvider listDataProvider = (ListDataProvider) getDataProvider();
-            if (!listDataProvider.getItems().contains(itemId)) {
+            if (!listDataProvider.getItems().contains(item)) {
                 throw new IllegalArgumentException("");
             }
         }
 
-        return getFlexibleOptionGroupItem(itemId);
+        return getFlexibleOptionGroupItem(item);
     }
 
     public Iterator<FlexibleRadioButtonGroupItemComponent<T>> getItemComponentIterator() {

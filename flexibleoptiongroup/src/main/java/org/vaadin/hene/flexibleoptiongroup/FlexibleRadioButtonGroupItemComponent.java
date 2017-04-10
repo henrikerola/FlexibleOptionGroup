@@ -49,4 +49,13 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
         getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(item);
         getState().readOnly = owner.isReadOnly();
     }
+
+    /**
+     * Returns the item of this {@link FlexibleRadioButtonGroupItemComponent}.
+     *
+     * @return the item of {@link FlexibleRadioButtonGroupItemComponent}
+     */
+    public T getItem() {
+        return item;
+    }
 }

@@ -97,25 +97,32 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
     }
 
     public Iterator<FlexibleRadioButtonGroupItemComponent<T>> getItemComponentIterator() {
+        return new Iterator<FlexibleRadioButtonGroupItemComponent<T>>() {
 
-//        		return new Iterator<FlexibleOptionGroupItemComponent>() {
-//
-//        			private Iterator<?> iterator = getItemIds().iterator();
-//
-//        			public boolean hasNext() {
-//        				return iterator.hasNext();
-//        			}
-//
-//        			public FlexibleOptionGroupItemComponent next() {
-//        				return getFlexibleOptionGroupItem(iterator.next());
-//        			}
-//
-//        			public void remove() {
-//        				throw new UnsupportedOperationException();
-//        			}
-//        		};
+            private final Iterator<T> iterator = createItemsIterator();
 
-        return null;
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            public FlexibleRadioButtonGroupItemComponent<T> next() {
+                return getFlexibleOptionGroupItem(iterator.next());
+            }
+
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    /**
+     * Returns an items {@link Iterator}.
+     */
+    protected Iterator<T> createItemsIterator() {
+        if (getDataProvider() instanceof ListDataProvider) {
+            return ((ListDataProvider) getDataProvider()).getItems().iterator();
+        }
+        throw new IllegalStateException("DataProvider is not an instance of ListDataProvider");
     }
 
     @Override

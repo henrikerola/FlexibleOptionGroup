@@ -3,10 +3,11 @@ package org.vaadin.hene.flexibleoptiongroup;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentSelectedServerRpc;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.AbstractComponent;
 
 /**
- * {@link FlexibleCheckBoxGroupItemComponent} represents a radio button or a check
+ * {@link FlexibleCheckBoxGroupItemComponent} represents a check
  * box of an item in {@link FlexibleCheckBoxGroup}.
  * 
  * @author Henri Kerola / Vaadin Ltd
@@ -49,77 +50,54 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 	}
 
 	/**
-	 * Returns the item of this FlexibleOptionGroupItemComponent.
+	 * Returns the item of this {@link FlexibleCheckBoxGroupItemComponent}.
 	 * 
-	 * @return the item of this FlexibleOptionGroupItemComponent
+	 * @return the item of this {@link FlexibleCheckBoxGroupItemComponent}
 	 */
 	public T getItem() {
 		return item;
 	}
 
 	/**
-	 * Returns the owner FlexibleOptionGroup of this
-	 * FlexibleOptionGroupItemComponent. Should never return null.
+	 * Returns the owner {@link FlexibleCheckBoxGroup} of this
+	 * {@link FlexibleCheckBoxGroupItemComponent}. Should never return null.
 	 * 
-	 * @return the owner FlexibleOptionGroup of this
-	 *         FlexibleOptionGroupItemComponent
+	 * @return the owner {@link FlexibleCheckBoxGroup} of this
+	 *         {@link FlexibleCheckBoxGroupItemComponent}
 	 */
 	public FlexibleCheckBoxGroup<T> getOwner() {
 		return owner;
 	}
 
-	/**
-	 * Sets the caption of this FlexibleOptionGroupItemComponent. The method
-	 * does the same as calling getOwner().setItemCaption(getItemId(), caption).
-	 * 
-	 * @param caption
-	 *            the caption of this FlexibleOptionGroupItemComponent
-	 */
-//	@Override
-//	public void setCaption(String caption) {
-//		owner.setItemCaption(itemId, caption);
-//	}
+	@Override
+	public String getCaption() {
+		return owner.getItemCaptionGenerator().apply(getItem());
+	}
 
-	/**
-	 * Returns the caption of this FlexibleOptionGroupItemComponent. The method
-	 * returns the same value as calling getOwner().getItemCaption(getItemId()).
-	 * 
-	 * @return the caption of this FlexibleOptionGroupItemComponent
-	 */
-//	@Override
-//	public String getCaption() {
-//		return owner.getItemCaption(itemId);
-//	}
-//
-//	@Override
-//	public void setIcon(Resource icon) {
-//		owner.setItemIcon(itemId, icon);
-//	}
-//
-//	@Override
-//	public Resource getIcon() {
-//		return owner.getItemIcon(itemId);
-//	}
-//
-//	@Override
-//	public boolean isEnabled() {
-//		return owner.isItemEnabled(itemId);
-//	}
-//
-//	@Override
-//	public void setEnabled(boolean enabled) {
-//		owner.setItemEnabled(itemId, enabled);
-//	}
-//
-//	@Override
-//	public boolean isReadOnly() {
-//		return owner.isReadOnly();
-//	}
-//
-//	@Override
-//	public void setReadOnly(boolean readOnly) {
-//		owner.setReadOnly(readOnly);
-//	}
+	@Override
+	public void setCaption(String caption) {
+		// TODO
+	}
+
+	@Override
+	public Resource getIcon() {
+		return owner.getItemIconGenerator().apply(getItem());
+	}
+
+	@Override
+	public void setIcon(Resource icon) {
+		// TODO
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return owner.getItemEnabledProvider().test(getItem());
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		// TODO
+	}
 
 	@Override
 	public FlexibleOptionGroupItemComponentState getState() {

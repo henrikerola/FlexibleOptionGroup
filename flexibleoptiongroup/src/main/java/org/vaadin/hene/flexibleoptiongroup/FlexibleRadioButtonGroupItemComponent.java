@@ -3,6 +3,7 @@ package org.vaadin.hene.flexibleoptiongroup;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentSelectedServerRpc;
 import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGroupItemComponentState;
 
+import com.vaadin.server.Resource;
 import com.vaadin.ui.AbstractComponent;
 
 /**
@@ -55,5 +56,45 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
      */
     public T getItem() {
         return item;
+    }
+
+    /**
+     * Returns the owner {@link FlexibleRadioButtonGroup} of this
+     * {@link FlexibleRadioButtonGroupItemComponent}. Should never return null.
+     *
+     * @return the owner {@link FlexibleRadioButtonGroup} of this {@link FlexibleRadioButtonGroupItemComponent}
+     */
+    public FlexibleRadioButtonGroup<T> getOwner() {
+        return owner;
+    }
+
+    @Override
+    public String getCaption() {
+        return owner.getItemCaptionGenerator().apply(getItem());
+    }
+
+    @Override
+    public void setCaption(String caption) {
+        // TODO
+    }
+
+    @Override
+    public Resource getIcon() {
+        return owner.getItemIconGenerator().apply(getItem());
+    }
+
+    @Override
+    public void setIcon(Resource icon) {
+        // TODO
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return owner.getItemEnabledProvider().test(getItem());
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        // TODO
     }
 }

@@ -85,17 +85,15 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
                 "The FlexibleOptionGroup component cannot be attached to an Application.");
     }
 
+    @Override
     public FlexibleRadioButtonGroupItemComponent<T> getItemComponent(T item) {
-        if (getDataProvider() instanceof ListDataProvider) {
-            ListDataProvider listDataProvider = (ListDataProvider) getDataProvider();
-            if (!listDataProvider.getItems().contains(item)) {
-                throw new IllegalArgumentException("");
-            }
+        if (!containsItem(item)) {
+            throw new IllegalArgumentException("Doesn't contain an item " + item);
         }
-
         return getFlexibleOptionGroupItem(item);
     }
 
+    @Override
     public Iterator<FlexibleRadioButtonGroupItemComponent<T>> getItemComponentIterator() {
         return new Iterator<FlexibleRadioButtonGroupItemComponent<T>>() {
 

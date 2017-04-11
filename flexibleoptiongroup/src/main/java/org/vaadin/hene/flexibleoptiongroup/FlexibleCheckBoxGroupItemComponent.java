@@ -36,13 +36,17 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 	}
 
 	@Override
+	public FlexibleOptionGroupItemComponentState getState() {
+		return (FlexibleOptionGroupItemComponentState) super.getState();
+	}
+
+	@Override
 	public void beforeClientResponse(boolean initial) {
 		super.beforeClientResponse(initial);
-//		if (!owner.containsId(itemId)) {
-//			throw new IllegalStateException(
-//					"The owner FlexibleOptionGroup does not contain an item with itemId '"
-//							+ itemId + "'.");
-//		}
+		if (!owner.containsItem(item)) {
+			throw new IllegalStateException(
+					"The owner FlexibleCheckBoxGroup does not contain an item '" + item + "'");
+		}
 		getState().ownerId = owner.id;
 		getState().selected = owner.isSelected(item);
 		getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(item);
@@ -97,10 +101,5 @@ public class FlexibleCheckBoxGroupItemComponent<T> extends AbstractComponent {
 	@Override
 	public void setEnabled(boolean enabled) {
 		// TODO
-	}
-
-	@Override
-	public FlexibleOptionGroupItemComponentState getState() {
-		return (FlexibleOptionGroupItemComponentState) super.getState();
 	}
 }

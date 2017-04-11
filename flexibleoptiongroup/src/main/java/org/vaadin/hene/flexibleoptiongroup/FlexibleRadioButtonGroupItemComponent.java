@@ -11,7 +11,7 @@ import com.vaadin.ui.AbstractComponent;
 public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent {
 
     private final FlexibleRadioButtonGroup<T> owner;
-    private final T                           item;
+    private final T item;
 
     private FlexibleOptionGroupItemComponentSelectedServerRpc rpc = new FlexibleOptionGroupItemComponentSelectedServerRpc() {
 
@@ -38,12 +38,10 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
     @Override
     public void beforeClientResponse(boolean initial) {
         super.beforeClientResponse(initial);
-        //		if (!owner.containsId(itemId)) {
-        //			throw new IllegalStateException(
-        //					"The owner FlexibleOptionGroup does not contain an item with itemId '"
-        //							+ itemId + "'.");
-        //		}
-        //
+        if (!owner.containsItem(item)) {
+            throw new IllegalStateException(
+                    "The owner FlexibleRadioButtonGroup does not contain an item '" + item + "'");
+        }
         getState().ownerId = owner.id;
         getState().selected = owner.isSelected(item);
         getState().enabled = owner.isEnabled() && owner.getItemEnabledProvider().test(item);

@@ -2,6 +2,7 @@ package org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui;
 
 import org.vaadin.hene.flexibleoptiongroup.FlexibleRadioButtonGroupItemComponent;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.shared.ui.Connect;
@@ -15,10 +16,12 @@ public class FlexibleRadioButtonGroupItemComponentConnector extends AbstractComp
     @Override
     protected void init() {
         super.init();
-        getWidget().addValueChangeHandler(valueChangeEvent -> {
-            boolean checked = valueChangeEvent.getValue();
-            getRpcProxy(FlexibleOptionGroupItemComponentSelectedServerRpc.class).selected(checked);
-        });
+        getWidget().addValueChangeHandler(this::onSelectionChange);
+    }
+
+    private void onSelectionChange(ValueChangeEvent<Boolean> valueChangeEvent) {
+        final boolean checked = valueChangeEvent.getValue();
+        getRpcProxy(FlexibleOptionGroupItemComponentSelectedServerRpc.class).selected(checked);
     }
 
     @Override

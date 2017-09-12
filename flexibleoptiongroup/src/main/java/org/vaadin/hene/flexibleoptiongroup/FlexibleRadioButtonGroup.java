@@ -115,6 +115,8 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
 
     /**
      * Returns an items {@link Iterator}.
+     * 
+     * @return an iterator
      */
     protected Iterator<T> createItemsIterator() {
         if (getDataProvider() instanceof ListDataProvider) {

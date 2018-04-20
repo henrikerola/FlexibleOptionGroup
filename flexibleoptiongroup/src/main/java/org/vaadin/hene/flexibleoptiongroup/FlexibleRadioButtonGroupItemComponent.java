@@ -5,11 +5,13 @@ import org.vaadin.hene.flexibleoptiongroup.widgetset.client.ui.FlexibleOptionGro
 
 import com.vaadin.server.Resource;
 import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Component.Focusable;
 
 /**
  * @author Henri Kerola / Vaadin
  */
-public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent {
+public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
+		implements Focusable {
 
     private final FlexibleRadioButtonGroup<T> owner;
     private final T item;
@@ -96,5 +98,22 @@ public class FlexibleRadioButtonGroupItemComponent<T> extends AbstractComponent 
     @Override
     public void setEnabled(boolean enabled) {
         // TODO
+    }
+
+	@Override
+	public int getTabIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setTabIndex(int tabIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+    @Override
+    public void focus() {
+        super.focus();
     }
 }

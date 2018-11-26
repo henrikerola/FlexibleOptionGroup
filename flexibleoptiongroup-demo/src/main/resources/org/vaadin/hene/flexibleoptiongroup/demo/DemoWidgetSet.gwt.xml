@@ -37,4 +37,8 @@
     
 
     <inherits name="org.vaadin.hene.flexibleoptiongroup.widgetset.FlexibleOptionGroupWidgetset" />
+
+    
+
+    <inherits name="com.vaadin.v7.Vaadin7WidgetSet" />
 </module>

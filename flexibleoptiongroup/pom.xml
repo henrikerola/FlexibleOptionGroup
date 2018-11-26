@@ -96,6 +96,16 @@
 			<artifactId>vaadin-compatibility-server</artifactId>
 			<version>${vaadin.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-compatibility-client</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-compatibility-shared</artifactId>
+			<version>${vaadin.version}</version>
+		</dependency>
 		
 		<!-- This can be replaced with TestNG or some other test framework supported by the surefire plugin -->
 		<dependency>

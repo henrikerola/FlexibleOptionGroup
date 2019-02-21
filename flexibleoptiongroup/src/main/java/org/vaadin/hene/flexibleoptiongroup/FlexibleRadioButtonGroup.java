@@ -107,6 +107,7 @@ public class FlexibleRadioButtonGroup<T> extends RadioButtonGroup<T>
                 return getFlexibleOptionGroupItem(iterator.next());
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }

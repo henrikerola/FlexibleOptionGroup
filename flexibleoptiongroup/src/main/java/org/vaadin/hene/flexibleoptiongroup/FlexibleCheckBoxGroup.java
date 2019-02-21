@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.vaadin.data.HasDataProvider;
 import com.vaadin.data.provider.DataProvider;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.shared.ui.optiongroup.CheckBoxGroupState;
 import com.vaadin.ui.CheckBoxGroup;
 import com.vaadin.ui.ComponentContainer;
@@ -118,25 +119,34 @@ public class FlexibleCheckBoxGroup<T> extends CheckBoxGroup<T>
 
 	public Iterator<FlexibleCheckBoxGroupItemComponent<T>> getItemComponentIterator() {
 
-//		return new Iterator<FlexibleOptionGroupItemComponent>() {
-//
-//			private Iterator<?> iterator = getItemIds().iterator();
-//
-//			public boolean hasNext() {
-//				return iterator.hasNext();
-//			}
-//
-//			public FlexibleOptionGroupItemComponent next() {
-//				return getFlexibleOptionGroupItem(iterator.next());
-//			}
-//
-//			public void remove() {
-//				throw new UnsupportedOperationException();
-//			}
-//		};
+        return new Iterator<FlexibleCheckBoxGroupItemComponent<T>>() {
 
-		return null;
+            private final Iterator<T> iterator = createItemsIterator();
+
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            public FlexibleCheckBoxGroupItemComponent<T> next() {
+                return getFlexibleOptionGroupItem(iterator.next());
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
 	}
+
+    /**
+     * Returns an items {@link Iterator}.
+     */
+    protected Iterator<T> createItemsIterator() {
+        if (getDataProvider() instanceof ListDataProvider) {
+            return ((ListDataProvider) getDataProvider()).getItems().iterator();
+        }
+        throw new IllegalStateException("DataProvider is not an instance of ListDataProvider");
+    }
 
 	@Override
 	public void markAsDirty() {
